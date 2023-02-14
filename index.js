@@ -2,15 +2,20 @@ var numberOfButtons = document.querySelectorAll(".drum").length;
 
 for (var i = 0; i < numberOfButtons; i++) {
 
+//detecting button click
     document.querySelectorAll(".drum")[i].addEventListener("click", function handlesClick() {
 
         var buttonInnerHTML = this.innerHTML;
         makeSound(buttonInnerHTML);
+        buttonAnimation(buttonInnerHTML);
     });
 
 }
+
+//detecting keys of keybord press.
 document.addEventListener("keydown",function (event){
     makeSound(event.key);
+    buttonAnimation(event.key);
 })
 
 function makeSound(key){
@@ -49,4 +54,13 @@ function makeSound(key){
             console.log("Somthing went wrong with the server");
             break;
     }
+}
+
+//adding animation
+function buttonAnimation(currentKey){
+    var activeButton = document.querySelector("."+currentKey);//currentkey is gonna be (w a s ...) but we want to change class so we use (".")
+    activeButton.classList.add("pressed");// but it gonna stuck at recent animation so setTimeout
+    setTimeout(function(){
+        activeButton.classList.remove("pressed");
+    },100);
 }
